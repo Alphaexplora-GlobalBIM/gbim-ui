@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* --- 1. CUSTOM SCROLLBAR --- */
+@layer base {
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: #0f172a; }
+  ::-webkit-scrollbar-thumb { background: #854d0e; border-radius: 0px; }
+  ::-webkit-scrollbar-thumb:hover { background: #eab308; box-shadow: 0 0 15px #eab308, 0 0 5px #facc15; }
+  html, body { background-color: #0f172a; color: #ffffff; margin: 0; padding: 0; -ms-overflow-style: none; }
+}
+
+/* --- 2. UTILITIES --- */
+@layer utilities {
+  .animate-slide-up { animation: slideUp 0.8s ease-out forwards; }
+  .animate-fade-in { animation: fadeIn 0.8s ease-out forwards; opacity: 0; }
+  .animate-slide-up-fade { animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+  
+  .delay-100 { animation-delay: 100ms; }
+  .delay-200 { animation-delay: 200ms; }
+}
+
+/* --- 3. KEYFRAMES --- */
+@keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideUpFade { 0% { opacity: 0; transform: translateY(40px); } 100% { opacity: 1; transform: translateY(0); } }
+@keyframes shineSweep { 0% { left: -100%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { left: 100%; opacity: 0; } }
+@keyframes shimmerMove { 0% { background-position: 200% center; } 100% { background-position: -200% center; } }
+
+/* --- 4. HERO TEXT FIX & ANIMATIONS --- */
+/* Use @layer components so these classes can be used anywhere */
+@layer components {
+  
+  /* The Wrapper for the White Text Shine */
+  .white-shine-wrapper {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    color: white;
+    
+    /* THE FIX: Expand the box downward to catch descenders (g, p, y) */
+    padding-bottom: 0.3em; 
+    margin-bottom: -0.3em; 
+    vertical-align: bottom; 
+  }
+
+  .white-shine-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%; 
+    width: 50%; 
+    height: 150%; /* Taller to cover the padding */
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.8), transparent);
+    transform: skewX(-25deg);
+    animation: shineSweep 1s ease-in-out 0.8s 1 forwards;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  /* The Gold Shimmer Text */
+  .gold-shimmer-loop {
+    display: inline-block;
+    background-image: linear-gradient(to right, #854d0e 0%, #eab308 40%, #fef08a 50%, #eab308 60%, #854d0e 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shimmerMove 3s linear infinite;
+    
+    /* Ensure padding for gold text too */
+    padding-bottom: 0.1em;
+  }
+}
