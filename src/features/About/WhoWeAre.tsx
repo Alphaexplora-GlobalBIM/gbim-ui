@@ -11,13 +11,13 @@ export default function WhoWeAre() {
                     <div className="relative">
                         <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 1.0 }}>
                             <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl border border-white/10">
-                                <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=2070&auto=format&fit=crop" alt="Engineer Working" className="w-full h-auto object-cover opacity-90" />
+                                <img src="https://images.pexels.com/photos/8056367/pexels-photo-8056367.jpeg" alt="Engineer Working" className="w-full h-[60vh] object-cover opacity-90" />
                             </div>
                         </motion.div>
                         <div className="absolute -bottom-10 -right-10 w-2/3 z-20 hidden md:block">
                             <motion.div initial={{ opacity: 0, x: 50, y: 50 }} whileInView={{ opacity: 1, x: 0, y: 0 }} viewport={{ once: true }} transition={{ duration: 1.2, delay: 0.2 }}>
                                 <div className="rounded-2xl overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] border border-white/10">
-                                    <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80" alt="Steel Structure" className="w-full h-auto object-cover grayscale hover:grayscale-0 transition-all duration-500" />
+                                    <img src="https://images.unsplash.com/photo-1531834685032-c34bf0d84c77?auto=format&fit=crop&q=8" alt="Steel Structure" className="w-full h-auto object-cover opacity-100" />
                                 </div>
                             </motion.div>
                         </div>

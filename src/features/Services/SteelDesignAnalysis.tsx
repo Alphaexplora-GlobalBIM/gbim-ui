@@ -1,12 +1,12 @@
 import ServiceLayout from './ServiceLayout';
-const steelDesignVideo = "https://res.cloudinary.com/dqapo8elj/video/upload/steeldesign.mp4";
+const steelDesignVideo = "https://www.pexels.com/download/video/8964792/";
 
 export default function SteelDesignAnalysis() {
     return (
         <ServiceLayout
             title="DESIGN & ANALYSIS"
             subtitle="Engineering Integrity"
-            image="https://www.taaltech.com/wp-content/uploads/2025/08/AdobeStock_555709946-scaled.jpeg"
+            image="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80"
             video={steelDesignVideo}
             description={`Our engineering team provides comprehensive structural analysis and design services. We don't just detail; we engineer solutions that are safe, compliant, and cost-effective.
 

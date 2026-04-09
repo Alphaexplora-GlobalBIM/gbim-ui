@@ -1,3 +1,4 @@
+import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { TextReveal } from '../../components/TextReveal';
@@ -15,8 +16,6 @@ const Reveal = ({ children, delay = '', className = '' }: { children: React.Reac
     return <div ref={ref} className={`${isVisible ? `animate-slide-up ${delay}` : 'opacity-0 translate-y-8'} ${className}`}>{children}</div>;
 };
 
-import React from 'react';
-
 export default function HeroSection() {
     return (
         <section className="relative min-h-[85vh] flex items-center justify-center bg-slate-900 overflow-hidden pt-24 pb-12">
@@ -26,6 +25,7 @@ export default function HeroSection() {
                 </video>
                 <div className="absolute inset-0 bg-gradient-to-b from-slate-900/60 via-slate-900/30 to-slate-900"></div>
             </div>
+
             <div className="relative z-10 text-center px-6 max-w-5xl mx-auto w-full">
                 <Reveal>
                     <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
@@ -43,6 +43,19 @@ export default function HeroSection() {
                     </div>
                 </Reveal>
             </div>
+
+            {/* VIDEO SOURCE CREDIT - Subtle bottom right corner */}
+            <div className="absolute bottom-4 right-4 z-20">
+                <a
+                    href="https://www.youtube.com/watch?v=4BzjUq921Y4"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[10px] text-white/30 hover:text-white/80 transition-colors tracking-widest uppercase font-mono"
+                >
+                    Video Source
+                </a>
+            </div>
+
             <style>{`
         @keyframes slide-up { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
         .animate-slide-up { animation: slide-up 0.8s ease-out forwards; }

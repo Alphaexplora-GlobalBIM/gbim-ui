@@ -1,5 +1,5 @@
 import ServiceLayout from './ServiceLayout';
-const steelVideo = "https://res.cloudinary.com/dqapo8elj/video/upload/steel.mp4";
+const steelVideo = "https://www.pexels.com/download/video/36229323/";
 
 export default function StructuralSteelDetailing() {
     return (
@@ -7,7 +7,7 @@ export default function StructuralSteelDetailing() {
             title="STRUCTURAL STEEL DETAILING"
             subtitle="Precision Fabrication"
             // FIXED IMAGE: High-rise steel construction
-            image="https://images.unsplash.com/photo-1535732759880-bbd5c7265e3f?auto=format&fit=crop&q=80"
+            image="https://images.unsplash.com/photo-1508450859948-4e04fabaa4ea?auto=format&fit=crop&q=80"
             video={steelVideo}
             description={`Our core expertise lies in providing high-precision structural steel detailing for commercial, industrial, and infrastructure projects. 
       

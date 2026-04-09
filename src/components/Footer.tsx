@@ -143,7 +143,7 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="text-yellow-500/80 font-medium hover:text-yellow-400 hover:underline transition-colors"
             >
-              AlphaExplora Information Technology Services
+              Alphaexplora Information Technology Services
             </a>
           </span>
         </div>

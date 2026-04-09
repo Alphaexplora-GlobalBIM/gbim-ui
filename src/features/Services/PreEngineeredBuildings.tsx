@@ -1,5 +1,5 @@
 import ServiceLayout from './ServiceLayout';
-const preengrVideo = "https://res.cloudinary.com/dqapo8elj/video/upload/preengr.mp4";
+const preengrVideo = "https://www.pexels.com/download/video/33893537/";
 
 export default function PreEngineeredBuildings() {
     return (
@@ -7,7 +7,7 @@ export default function PreEngineeredBuildings() {
             title="PRE-ENGINEERED BUILDINGS"
             subtitle="Rapid Construction"
             // FIXED IMAGE: Industrial warehouse frame structure
-            image="https://images.unsplash.com/photo-1516216628859-9bccecab13ca?auto=format&fit=crop&q=80"
+            image="https://images.pexels.com/photos/32239084/pexels-photo-32239084.jpeg"
             video={preengrVideo}
             description={`We are industry leaders in detailing Pre-Engineered Buildings (PEB), ensuring seamless integration of primary frames, secondary members, and cladding systems.
 
