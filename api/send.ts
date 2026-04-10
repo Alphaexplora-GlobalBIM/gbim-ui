@@ -29,8 +29,8 @@ export default async function handler(req: any, res: any) {
             // FIX: Gamitin ang Buffer.from() at ilagay ang contentType
             attachments.push({
                 filename: file_name,
-                content: Buffer.from(base64Data, 'base64'),
-                contentType: contentType
+                content: base64Data, // Ginamit natin yung raw string imbes na Buffer
+                contentType: contentType // Important: Para basahin ni Roundcube/Gmail
             });
         }
 
