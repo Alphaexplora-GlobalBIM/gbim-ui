@@ -3,7 +3,7 @@ import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { TextReveal } from '../../components/TextReveal';
 
-const heroVideo = "https://res.cloudinary.com/dqapo8elj/video/upload/bg.mp4";
+const heroVideo = "https://res.cloudinary.com/dqapo8elj/video/upload/v1775823253/GBIM_Video.mp4";
 
 const Reveal = ({ children, delay = '', className = '' }: { children: React.ReactNode; delay?: string; className?: string }) => {
     const [isVisible, setIsVisible] = React.useState(false);

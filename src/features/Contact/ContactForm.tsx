@@ -20,8 +20,12 @@ export default function ContactForm() {
         try {
             let file_content = null, file_name = null;
             if (selectedFile) { file_content = await fileToBase64(selectedFile); file_name = selectedFile.name; }
-            const response = await fetch('/api/send', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...formData, file_name, file_content }) });
-            if (response.ok) { setStatusMessage({ type: 'success', text: 'Thank you! Your inquiry has been sent.' }); setFormData({ firstName: '', lastName: '', email: '', company: '', service: 'Structural Steel Detailing', details: '' }); setSelectedFile(null); }
+            // Gamitin ang full path papunta sa API route
+            const response = await fetch('https://www.globalbim.ph/api/send', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ ...formData, file_name, file_content })
+            }); if (response.ok) { setStatusMessage({ type: 'success', text: 'Thank you! Your inquiry has been sent.' }); setFormData({ firstName: '', lastName: '', email: '', company: '', service: 'Structural Steel Detailing', details: '' }); setSelectedFile(null); }
             else { const err = await response.json(); throw new Error(err.error?.message || 'Failed to send'); }
         } catch { setStatusMessage({ type: 'error', text: 'Failed to send the request. Please try again.' }); }
         finally { setIsLoading(false); }
