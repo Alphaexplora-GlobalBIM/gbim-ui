@@ -11,7 +11,7 @@ const payload = [
     attachments: [
         {
             filename: 'test.pdf',
-            content: Buffer.from('hello world').toString('base64'),
+            content: Buffer.from('hello world'),
         }
     ]
   }

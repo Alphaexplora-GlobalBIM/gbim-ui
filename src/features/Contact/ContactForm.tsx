@@ -25,8 +25,8 @@ export default function ContactForm() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ ...formData, file_name, file_content })
             }); if (response.ok) { setStatusMessage({ type: 'success', text: 'Thank you! Your inquiry has been sent.' }); setFormData({ firstName: '', lastName: '', email: '', company: '', service: 'Structural Steel Detailing', details: '' }); setSelectedFile(null); }
-            else { const err = await response.json(); throw new Error(err.error?.message || 'Failed to send'); }
-        } catch { setStatusMessage({ type: 'error', text: 'Failed to send the request. Please try again.' }); }
+            else { const err = await response.json(); throw new Error(err.error?.message || JSON.stringify(err.error) || 'Failed to send'); }
+        } catch (err: any) { setStatusMessage({ type: 'error', text: err.message || 'Failed to send the request. Please try again.' }); }
         finally { setIsLoading(false); }
     };
 
