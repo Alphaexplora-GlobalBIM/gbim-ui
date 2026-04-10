@@ -37,9 +37,9 @@ export default async function handler(req: any, res: any) {
 
                 attachments.push({
                     filename: file_name,
-                    content: base64Data // String na lang, huwag na natin i-Buffer!
+                    content: Buffer.from(base64Data, 'base64')
                 });
-                console.log("Success: Base64 string prepared for attachment.");
+                console.log("Success: Base64 string prepared and converted to Buffer for attachment.");
             } catch (formatError) {
                 console.error("Failed to format attachment:", formatError);
             }

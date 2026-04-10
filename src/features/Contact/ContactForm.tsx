@@ -30,9 +30,18 @@ export default function ContactForm() {
         finally { setIsLoading(false); }
     };
 
+    const handleFileSelection = (file: File) => {
+        if (file.size > 3 * 1024 * 1024) {
+            setStatusMessage({ type: 'error', text: 'File size exceeds the 3MB limit. Please upload a smaller file or provide a link in the details.' });
+            return;
+        }
+        setStatusMessage({ type: '', text: '' });
+        setSelectedFile(file);
+    };
+
     const handleDrag = (e: React.DragEvent) => { e.preventDefault(); e.stopPropagation(); setDragActive(e.type === "dragenter" || e.type === "dragover"); };
-    const handleDrop = (e: React.DragEvent) => { e.preventDefault(); e.stopPropagation(); setDragActive(false); if (e.dataTransfer.files?.[0]) setSelectedFile(e.dataTransfer.files[0]); };
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => { if (e.target.files?.[0]) setSelectedFile(e.target.files[0]); };
+    const handleDrop = (e: React.DragEvent) => { e.preventDefault(); e.stopPropagation(); setDragActive(false); if (e.dataTransfer.files?.[0]) handleFileSelection(e.dataTransfer.files[0]); };
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => { if (e.target.files?.[0]) handleFileSelection(e.target.files[0]); };
 
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex-grow mb-20">
@@ -98,7 +107,7 @@ export default function ContactForm() {
                                     onDragEnter={handleDrag} onDragLeave={handleDrag} onDragOver={handleDrag} onDrop={handleDrop}>
                                     <input type="file" className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" onChange={handleChange} />
                                     {!selectedFile ? (
-                                        <div className="flex flex-col items-center gap-3"><div className="p-3 bg-slate-800 rounded-full border border-white/5"><Upload className="w-6 h-6 text-yellow-500" /></div><div><p className="text-sm text-white font-medium">Click to upload or drag and drop</p><p className="text-xs text-slate-500 mt-1">PDF, DWG, IFC, or Revit files (Max 50MB)</p></div></div>
+                                        <div className="flex flex-col items-center gap-3"><div className="p-3 bg-slate-800 rounded-full border border-white/5"><Upload className="w-6 h-6 text-yellow-500" /></div><div><p className="text-sm text-white font-medium">Click to upload or drag and drop</p><p className="text-xs text-slate-500 mt-1">PDF, DWG, IFC, or Revit files (Max 3MB)</p></div></div>
                                     ) : (
                                         <div className="flex items-center justify-center gap-4 relative z-10"><div className="p-3 bg-green-500/20 rounded-full"><FileText className="w-6 h-6 text-green-500" /></div><div className="text-left"><p className="text-sm text-white font-medium">{selectedFile.name}</p><p className="text-xs text-slate-500">{(selectedFile.size / 1024 / 1024).toFixed(2)} MB</p></div><button onClick={e => { e.preventDefault(); setSelectedFile(null); }} className="text-xs text-red-400 hover:text-red-300 underline ml-4 relative z-20 pointer-events-auto">Remove</button></div>
                                     )}
