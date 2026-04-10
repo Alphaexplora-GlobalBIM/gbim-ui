@@ -44,18 +44,6 @@ export default function HeroSection() {
                 </Reveal>
             </div>
 
-            {/* VIDEO SOURCE CREDIT - Subtle bottom right corner */}
-            <div className="absolute bottom-4 right-4 z-20">
-                <a
-                    href="https://www.youtube.com/watch?v=4BzjUq921Y4"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[10px] text-white/30 hover:text-white/80 transition-colors tracking-widest uppercase font-mono"
-                >
-                    Video Source
-                </a>
-            </div>
-
             <style>{`
         @keyframes slide-up { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
         .animate-slide-up { animation: slide-up 0.8s ease-out forwards; }
