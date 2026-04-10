@@ -50,7 +50,7 @@ export default function ContactForm() {
                             {[
                                 { icon: MapPin, label: "Headquarters (Philippines)", content: <p className="text-gray-400 leading-relaxed font-mono text-sm">6A T. Bugallon St.<br />Marikina Heights, Marikina City<br />Philippines 1810</p> },
                                 { icon: Phone, label: "Direct Lines", content: <div className="space-y-1"><p className="text-gray-400 font-mono text-sm flex items-center gap-2"><span className="text-xs bg-slate-700 px-1 rounded text-white">PH</span> (+63) 962 664 0660</p><p className="text-gray-400 font-mono text-sm flex items-center gap-2"><span className="text-xs bg-slate-700 px-1 rounded text-white">CA</span> +1 (584) 447 3416</p></div> },
-                                { icon: Mail, label: "Project Inquiries", content: <p className="text-gray-400 font-mono text-sm">globalbim.ph@gmail.com</p> },
+                                { icon: Mail, label: "Project Inquiries", content: <p className="text-gray-400 font-mono text-sm">info@globalbim.ph</p> },
                             ].map(({ icon: Icon, label, content }, i) => (
                                 <div key={i} className="flex items-start gap-4 group">
                                     <div className="p-3 bg-yellow-500/10 rounded-sm border border-yellow-500/20 group-hover:bg-yellow-500/20 transition-colors"><Icon className="h-6 w-6 text-yellow-500" /></div>
