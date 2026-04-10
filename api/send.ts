@@ -3,9 +3,13 @@ import { Resend } from 'resend';
 // Initialize the Resend SDK
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// Para sa Next.js/Vercel: I-allow natin ang malalaking files (up to 10MB)
+export const config = {
+    api: { bodyParser: { sizeLimit: '10mb' } },
+};
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default async function handler(req: any, res: any) {
-    // Only accept POST requests
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'Method Not Allowed' });
     }
@@ -15,10 +19,18 @@ export default async function handler(req: any, res: any) {
 
         const attachments = [];
         if (file_name && file_content) {
-            // The frontend sends base64 with a data URI prefix
+            // FIX: Kunin ang exact MIME type (ex. application/pdf) mula sa base64 prefix
+            const mimeMatch = file_content.match(/^data:(.*?);base64,/);
+            const contentType = mimeMatch ? mimeMatch[1] : 'application/octet-stream';
+
+            // FIX: Ihiwalay ang pure base64 string
+            const base64Data = file_content.split(',')[1];
+
+            // FIX: Gamitin ang Buffer.from() at ilagay ang contentType
             attachments.push({
                 filename: file_name,
-                content: file_content.split(',')[1],
+                content: Buffer.from(base64Data, 'base64'),
+                contentType: contentType
             });
         }
 
@@ -28,8 +40,8 @@ export default async function handler(req: any, res: any) {
             // EMAIL 1: INBOUND (To GlobalBIM Inbox)
             // ==========================================
             {
-                from: 'GlobalBIM Website <no-reply@globalbim.ph>', // USING YOUR VERIFIED DOMAIN
-                to: ['info@globalbim.ph'], // Sending straight to your cPanel inbox
+                from: 'GlobalBIM Website <no-reply@globalbim.ph>',
+                to: ['info@globalbim.ph'],
                 subject: `New Project Inquiry: ${service} from ${company}`,
                 html: `
                     <div style="font-family: Arial, sans-serif; color: #1e293b; max-width: 600px;">
@@ -50,8 +62,8 @@ export default async function handler(req: any, res: any) {
             // EMAIL 2: OUTBOUND (Auto-Reply to Client)
             // ==========================================
             {
-                from: 'GlobalBIM Engineering <info@globalbim.ph>', // Looks professional to the client
-                to: [email], // Sending back to the email they typed in the form
+                from: 'GlobalBIM Engineering <info@globalbim.ph>',
+                to: [email],
                 subject: 'We have received your project inquiry - GlobalBIM',
                 html: `
                     <div style="font-family: Arial, sans-serif; color: #1e293b; line-height: 1.6; max-width: 600px; margin: 0 auto;">
