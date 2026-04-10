@@ -1,11 +1,15 @@
 import { Resend } from 'resend';
 
-// Initialize the Resend SDK
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-// Para sa Next.js/Vercel: I-allow natin ang malalaking files (up to 10MB)
+// SUPER IMPORTANT: Ito ang mag-a-allow sa Vercel na tumanggap ng files up to 10MB.
+// Kapag wala ito, iba-block ng Vercel ang request kapag lumagpas sa 1MB ang image/PDF.
 export const config = {
-    api: { bodyParser: { sizeLimit: '10mb' } },
+    api: {
+        bodyParser: {
+            sizeLimit: '10mb',
+        },
+    },
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -17,28 +21,32 @@ export default async function handler(req: any, res: any) {
     try {
         const { firstName, lastName, email, company, service, details, file_name, file_content } = req.body;
 
+        // CHECKPOINT 1: Tignan natin kung nakarating sa backend ang file
+        console.log("--- INCOMING REQUEST ---");
+        console.log("File Name exists?", !!file_name);
+        console.log("File Content exists?", !!file_content);
+
         const attachments = [];
         if (file_name && file_content) {
-            // FIX: Kunin ang exact MIME type (ex. application/pdf) mula sa base64 prefix
-            const mimeMatch = file_content.match(/^data:(.*?);base64,/);
-            const contentType = mimeMatch ? mimeMatch[1] : 'application/octet-stream';
+            try {
+                // FOOLPROOF CLEANER: Tatanggalin nito yung "data:image/png;base64," kahit ano pa ang type ng file
+                const base64Data = file_content.replace(/^data:(.*,)?/, '');
 
-            // FIX: Ihiwalay ang pure base64 string
-            const base64Data = file_content.split(',')[1];
-
-            // FIX: Gamitin ang Buffer.from() at ilagay ang contentType
-            attachments.push({
-                filename: file_name,
-                content: base64Data, // Ginamit natin yung raw string imbes na Buffer
-                contentType: contentType // Important: Para basahin ni Roundcube/Gmail
-            });
+                // Mas stable basahin ng Resend SDK kapag naka-Buffer
+                attachments.push({
+                    filename: file_name,
+                    content: Buffer.from(base64Data, 'base64'),
+                });
+                console.log("Success: Attachment formatted and added to array.");
+            } catch (formatError) {
+                console.error("Failed to format attachment:", formatError);
+            }
         }
 
-        // We use resend.batch.send to send multiple distinct emails at once
+        // CHECKPOINT 2: Tignan natin kung may laman ang array bago ipadala kay Resend
+        console.log("Total Attachments to send:", attachments.length);
+
         const { data, error } = await resend.batch.send([
-            // ==========================================
-            // EMAIL 1: INBOUND (To GlobalBIM Inbox)
-            // ==========================================
             {
                 from: 'GlobalBIM Website <no-reply@globalbim.ph>',
                 to: ['info@globalbim.ph'],
@@ -56,11 +64,9 @@ export default async function handler(req: any, res: any) {
                         </div>
                     </div>
                 `,
+                // I-attach lang natin kapag may laman yung array
                 attachments: attachments.length > 0 ? attachments : undefined
             },
-            // ==========================================
-            // EMAIL 2: OUTBOUND (Auto-Reply to Client)
-            // ==========================================
             {
                 from: 'GlobalBIM Engineering <info@globalbim.ph>',
                 to: [email],
@@ -88,6 +94,7 @@ export default async function handler(req: any, res: any) {
             return res.status(400).json({ error });
         }
 
+        console.log("--- EMAIL SENT SUCCESSFULLY ---");
         return res.status(200).json({ message: 'Emails sent successfully!', data });
     } catch (error) {
         console.error("Internal Server Error:", error);
