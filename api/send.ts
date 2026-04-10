@@ -29,15 +29,17 @@ export default async function handler(req: any, res: any) {
         const attachments = [];
         if (file_name && file_content) {
             try {
-                // FOOLPROOF CLEANER: Tatanggalin nito yung "data:image/png;base64," kahit ano pa ang type ng file
-                const base64Data = file_content.replace(/^data:(.*,)?/, '');
+                // Pinaka-safe na paraan para i-hiwalay ang data URI (data:image/png;base64,...)
+                // sa mismong pure base64 string na kailangan ni Resend.
+                const base64Data = file_content.includes(',')
+                    ? file_content.split(',')[1]
+                    : file_content;
 
-                // Mas stable basahin ng Resend SDK kapag naka-Buffer
                 attachments.push({
                     filename: file_name,
-                    content: Buffer.from(base64Data, 'base64'),
+                    content: base64Data // String na lang, huwag na natin i-Buffer!
                 });
-                console.log("Success: Attachment formatted and added to array.");
+                console.log("Success: Base64 string prepared for attachment.");
             } catch (formatError) {
                 console.error("Failed to format attachment:", formatError);
             }
