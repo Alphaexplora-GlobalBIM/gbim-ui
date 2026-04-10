@@ -31,8 +31,11 @@ export default function ContactForm() {
     };
 
     const handleFileSelection = (file: File) => {
-        if (file.size > 3 * 1024 * 1024) {
-            setStatusMessage({ type: 'error', text: 'File size exceeds the 3MB limit. Please upload a smaller file or provide a link in the details.' });
+        if (file.size > 2 * 1024 * 1024) { // 2MB Limit for Vercel stability
+            setStatusMessage({
+                type: 'error',
+                text: 'File size exceeds the 2MB limit for direct upload. For larger files, please provide a download link (Dropbox/Drive) in the details section.'
+            });
             return;
         }
         setStatusMessage({ type: '', text: '' });
