@@ -20,7 +20,6 @@ export default function ContactForm() {
         try {
             let file_content = null, file_name = null;
             if (selectedFile) { file_content = await fileToBase64(selectedFile); file_name = selectedFile.name; }
-            // Gamitin ang full path papunta sa API route
             const response = await fetch('https://www.globalbim.ph/api/send', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
