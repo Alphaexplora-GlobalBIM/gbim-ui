@@ -9,17 +9,102 @@ import Footer from '../../components/Footer';
 import { rawProjects } from '../../assets/data/projectsData';
 
 
-// 3. DYNAMIC CLOUDINARY GALLERY LOADER (1 to 14)
+// 3. CLOUDINARY GALLERY LOADER
 const cloudinaryBase = "https://res.cloudinary.com/dqapo8elj/image/upload";
 
-const galleryItems = Array.from({ length: 14 }).map((_, index) => {
+// 3a. NAMED PROJECT PLATES
+// Same { id, real, sketch } shape and same sketch-to-real hover reveal as the
+// site plates below. Sketch sits on top by default, real photo on hover.
+const projectPlates = [
+    {
+        id: "ASB-MANUFACTURING-BUILDING",
+        label: "ASB Manufacturing Building",
+        sketch: `${cloudinaryBase}/v1787339437/ASB-MANUFACTURING-BUILDING-SKETCH.jpg`,
+        real: `${cloudinaryBase}/v1787336468/ASB-MANUFACTURING-BUILDING.png`
+    },
+    {
+        id: "DASCOM-COMPLEX",
+        label: "Dascom Complex",
+        sketch: `${cloudinaryBase}/v1787339433/DASCOM-COMPLEX-SKETCH.jpg`,
+        real: `${cloudinaryBase}/v1787336468/DASCOM-COMPLEX.png`
+    },
+    {
+        id: "EASTSIDE-HIGH-SCHOOL",
+        label: "Eastside High School",
+        sketch: `${cloudinaryBase}/v1787339437/EASTSIDE-HIGH-SCHOOL-SKETCH.jpg`,
+        real: `${cloudinaryBase}/v1787336468/EASTSIDE-HIGH-SCHOOL.png`
+    },
+    {
+        id: "HAIER-OFFICE-BUILDING",
+        label: "Haier Office Building",
+        sketch: `${cloudinaryBase}/v1787339435/HAIER-OFFICE-BUILDING-SKETCH.jpg`,
+        real: `${cloudinaryBase}/v1787336468/HAIER-OFFICE-BUILDING.png`
+    },
+    {
+        id: "HAIKHOU-PHARM",
+        label: "Haikou Pharm Project",
+        sketch: `${cloudinaryBase}/v1787339435/HAIKHOU-PHARM-SKETCH.jpg`,
+        // NOTE: this one is .jpg on Cloudinary, not .png like the rest
+        real: `${cloudinaryBase}/v1787336469/HAIKHOU-PHARM.jpg`
+    },
+    {
+        id: "KNAUF-MANUFACTURING-COMPLEX",
+        label: "Knauf Manufacturing Complex",
+        sketch: `${cloudinaryBase}/v1787339438/KNAUF-MANUFACTURING-COMPLEX-SKETCH.jpg`,
+        real: `${cloudinaryBase}/v1787336470/KNAUF-MANUFACTURING-COMPLEX.png`
+    },
+    {
+        id: "MATTEL-TOYS-FACTORY",
+        label: "Mattel Toys Factory",
+        sketch: `${cloudinaryBase}/v1787339439/MATTEL-TOYS-FACTORY-SKETCH.jpg`,
+        real: `${cloudinaryBase}/v1787336468/MATTEL-TOYS-FACTORY.png`
+    },
+    {
+        id: "SHENYANG-HUNHE-GRAND-MARKET",
+        label: "Shenyang Hunhe Grand Market",
+        sketch: `${cloudinaryBase}/v1787339440/SHENYANG-HUNHE-GRAND-MARKET-SKETCH.jpg`,
+        real: `${cloudinaryBase}/v1787336469/SHENYANG-HUNHE-GRAND-MARKET.png`
+    },
+    {
+        id: "SK-NINGBO-WAREHOUSE",
+        label: "SK Ningbo Warehouse",
+        sketch: `${cloudinaryBase}/v1787339432/SK-NINGBO-WAREHOUSE-SKETCH.jpg`,
+        real: `${cloudinaryBase}/v1787336471/SK-NINGBO-WAREHOUSE.png`
+    },
+    {
+        id: "SUN-ACE-GULF-LTD",
+        label: "Warehouse for Sun Ace Gulf Ltd.",
+        // NOTE: Cloudinary public_id is "UN_ACE_GULF_LTD." — leading "S" is missing
+        // and the id ends in a dot, hence the double dot before the extension.
+        sketch: `${cloudinaryBase}/v1787339433/UN_ACE_GULF_LTD.-SKETCH.jpg`,
+        real: `${cloudinaryBase}/v1787336470/UN_ACE_GULF_LTD..png`
+    },
+    {
+        id: "YCLD-FACTORY-BUILDING",
+        label: "YCLD Factory Building",
+        sketch: `${cloudinaryBase}/v1787339436/YCLD-FACTORY-BUILDING-SKETCH.jpg`,
+        real: `${cloudinaryBase}/v1787336471/YCLD-FACTORY-BUILDING.png`
+    },
+    {
+        id: "ZAHID-BUSINESS-PARK",
+        label: "Zahid Business Park",
+        sketch: `${cloudinaryBase}/v1787339436/ZAHID-BUSINESS-PARK-SKETCH.jpg`,
+        real: `${cloudinaryBase}/v1787336471/ZAHID-BUSINESS-PARK.png`
+    }
+];
+
+// 3b. DYNAMIC SITE PLATES (1 to 14)
+const sitePlates = Array.from({ length: 14 }).map((_, index) => {
     const num = index + 1;
     return {
-        id: num,
+        id: `SITE-1-${num}`,
+        label: `Site Plate ${num}`,
         real: `${cloudinaryBase}/Site-1-${num}.jpg`,
         sketch: `${cloudinaryBase}/Site-1-${num}_sketch.png`
     };
 });
+
+const galleryItems = [...projectPlates, ...sitePlates];
 
 // Dynamically extract categories from the data
 const uniqueCats = Array.from(new Set(rawProjects.map((p) => p.category)));
@@ -296,13 +381,13 @@ export default function Projects() {
 
                             {/* 4-Column Grid */}
                             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                                {galleryItems.map((item) => (
+                                {galleryItems.map((item, index) => (
                                     <motion.div
                                         key={item.id}
                                         initial={{ opacity: 0, y: 20 }}
                                         whileInView={{ opacity: 1, y: 0 }}
                                         viewport={{ once: true, margin: "-50px" }}
-                                        transition={{ duration: 0.6, delay: (item.id % 4) * 0.1 }}
+                                        transition={{ duration: 0.6, delay: (index % 4) * 0.1 }}
                                         className="group relative aspect-[4/3] bg-slate-900 rounded-sm overflow-hidden border border-white/5 cursor-pointer"
                                         onClick={() => item.real && setFullScreenImage(item.real)}
                                     >
@@ -310,7 +395,7 @@ export default function Projects() {
                                         {item.sketch && (
                                             <img
                                                 src={item.sketch}
-                                                alt={`Structural Sketch ${item.id}`}
+                                                alt={`${item.label} — structural sketch`}
                                                 className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 opacity-100 group-hover:opacity-0"
                                                 style={{ zIndex: 10 }}
                                             />
@@ -320,7 +405,7 @@ export default function Projects() {
                                         {item.real && (
                                             <img
                                                 src={item.real}
-                                                alt={`Real Construction ${item.id}`}
+                                                alt={`${item.label} — completed structure`}
                                                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2s] scale-100 group-hover:scale-110"
                                                 style={{ zIndex: 5 }}
                                             />

@@ -271,34 +271,34 @@ export const rawProjects = [
     lat: 15.1450
   },
   {
-    id: "HOB-SHA",
-    title: "Haire Office Bldg",
-    location: "Shanghai, China",
+    id: "HOB-QIN",
+    title: "HAIER OFFICE BUILDING",
+    location: "Qingdao, China",
     region: "China",
     category: "Commercial",
-    description: "Corporate office building structural design.",
-    lng: 114.3055, // Wuhan (Central)
-    lat: 30.5928
+    description: "Corporate office building inside Haier Industrial Park, Laoshan District — steel-framed office block within the group's appliance manufacturing and logistics campus.",
+    lng: 120.4273, // No. 1 Haier Rd., Laoshan District, Qingdao
+    lat: 36.1341
   },
   {
-    id: "HPP-SHA",
-    title: "Haikou Pharm Project",
-    location: "Shanghai, China",
+    id: "HPP-HAI",
+    title: "HAIKOU PHARM PROJECT",
+    location: "Haikou, Hainan, China",
     region: "China",
     category: "Industrial",
-    description: "Pharmaceutical manufacturing facility.",
-    lng: 108.9398, // Xi'an (Central)
-    lat: 34.3416
+    description: "Pharmaceutical manufacturing plant on Nanhai Boulevard, Xiuying District — production halls plus steel-framed utility, workshop and warehouse structures.",
+    lng: 110.2936, // Xiuying District, Haikou
+    lat: 20.0007
   },
   {
-    id: "MAT-SHA",
-    title: "Matel Project",
-    location: "Shanghai, China",
+    id: "MAT-DGN",
+    title: "MATTEL TOYS FACTORY",
+    location: "Dongguan, Guangdong, China",
     region: "China",
     category: "Industrial",
-    description: "Industrial plant structural engineering.",
-    lng: 103.8500, // Lanzhou Area (Western Interior)
-    lat: 36.0600
+    description: "Toy manufacturing plant in Chang'an, Dongguan — large-span steel-framed production and assembly building in the Pearl River Delta export manufacturing belt.",
+    lng: 113.8024, // Chang'an, Dongguan
+    lat: 22.8153
   },
   {
     id: "YLNG-BEL",
@@ -369,5 +369,92 @@ export const rawProjects = [
     description: "Loading shed structure for west coast industrial city.",
     lng: 38.0600,
     lat: 24.5200 // Slightly adjusted to not overlap
+  },
+
+  // ============================================================
+  // BATCH 2 — added Aug 2026. Locations researched from public
+  // sources (company registries / press releases), NOT from the
+  // original job files. Entries marked TODO need Engr. Romeo /
+  // client confirmation before this goes to production.
+  // ============================================================
+  {
+    id: "ZBP-JED",
+    title: "ZAHID BUSINESS PARK",
+    location: "Jeddah, Saudi Arabia",
+    region: "Saudi Arabia",
+    category: "Commercial",
+    description: "Corporate campus for the Zahid Group in the Al Rihab district of northern Jeddah — an 11-storey headquarters tower plus six large-span facility buildings, a community center and a learning institute.",
+    lng: 39.1740, // Al Rihab district, northern Jeddah (district-level)
+    lat: 21.5670
+  },
+  {
+    id: "KMC-RAK",
+    title: "KNAUF MANUFACTURING COMPLEX",
+    location: "Ras Al Khaimah",
+    region: "United Arab Emirates",
+    category: "Industrial",
+    description: "Gypsum board and plaster manufacturing complex for Knauf — large-span pre-engineered production halls with associated raw material and finished goods storage.",
+    lng: 55.9200, // TODO: verify plot — RAK FTZ Industrial Park vs Al Ghail Industrial Zone
+    lat: 25.8600
+  },
+  {
+    id: "SKW-NGB",
+    title: "SK NINGBO WAREHOUSE",
+    location: "Ningbo, Zhejiang, China",
+    region: "China",
+    category: "Warehouse",
+    description: "Storage and logistics building at the SK performance rubber complex inside the Ningbo Petrochemical Zone, Zhenhai District — steel-framed warehouse supporting bulk material handling.",
+    lng: 121.7200, // Zhenhai District petrochemical zone (zone-level)
+    lat: 29.9500
+  },
+  {
+    id: "HGM-SHE",
+    title: "SHENYANG HUNHE GRAND MARKET",
+    location: "Shenyang, Liaoning, China",
+    region: "China",
+    category: "Commercial",
+    description: "Large-span wholesale and trade market hall in the Hunhe river corridor, Hunnan District, Shenyang — clear-span roof structure over open retail floor area.",
+    lng: 123.4568, // TODO: unverified — no public record of this market; confirm exact site
+    lat: 41.7256
+  },
+  {
+    id: "ASB-HKG",
+    title: "ASB MANUFACTURING BUILDING",
+    location: "Tseung Kwan O, Hong Kong",
+    region: "Hong Kong",
+    category: "Industrial",
+    description: "Process and production building at the ASB waste-oil-to-biodiesel plant in Tseung Kwan O Industrial Estate — steel-framed process structure with adjacent tank farm supports.",
+    lng: 114.2592, // TODO: confirm client — ASB Biodiesel (Hong Kong) vs Nissei ASB (Komoro, Japan)
+    lat: 22.3115
+  },
+  {
+    id: "DSC-VIR",
+    title: "DASCOM COMPLEX",
+    location: "Verona, Virginia, USA",
+    region: "United States",
+    category: "Industrial",
+    description: "Headquarters and distribution complex for DASCOM Americas at Mill Place Commerce Park — single-storey pre-engineered building combining office, light assembly and warehousing.",
+    lng: -79.0018, // TODO: confirm site — Verona VA (US HQ) vs Jiangmen, Guangdong (China plant)
+    lat: 38.1915
+  },
+  {
+    id: "EHS-GNV",
+    title: "EASTSIDE HIGH SCHOOL",
+    location: "Gainesville, Florida, USA",
+    region: "United States",
+    category: "Infrastructure",
+    description: "Educational facility structural steel package — pre-engineered gymnasium and athletic building typical of Southeast US school construction.",
+    lng: -82.2687, // TODO: 6+ US schools share this name — confirm which campus (Gainesville FL assumed)
+    lat: 29.6400
+  },
+  {
+    id: "YCLD-FB",
+    title: "YCLD FACTORY BUILDING",
+    location: "China",
+    region: "China",
+    category: "Industrial",
+    description: "Factory building structural steel detailing.",
+    lng: 118.7969, // TODO: PLACEHOLDER COORDS — client/site not identified. Do not publish until confirmed.
+    lat: 32.0603
   }
 ];

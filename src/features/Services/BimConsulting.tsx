@@ -1,5 +1,5 @@
 import ServiceLayout from './ServiceLayout';
-const bimConsVideo = "https://res.cloudinary.com/dqapo8elj/video/upload/bimcons.mp4";
+const bimConsVideo = "https://www.pexels.com/download/video/5582830/";
 
 export default function BimConsulting() {
     return (
@@ -7,7 +7,7 @@ export default function BimConsulting() {
             title="BIM CONSULTING"
             subtitle="Digital Twins"
             // FIXED IMAGE: Modern architecture / Digital model feel
-            image="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80"
+            image="https://images.pexels.com/photos/5582597/pexels-photo-5582597.jpeg"
             video={bimConsVideo}
             description={`Building Information Modeling (BIM) is more than just 3D software; it is a process that integrates architecture, engineering, and construction. We help firms transition from 2D workflows to intelligent 3D BIM environments.
 
