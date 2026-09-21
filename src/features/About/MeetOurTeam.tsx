@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { Reveal } from "../../components/Reveal";
 import { TextReveal } from "../../components/TextReveal";
 import Footer from "../../components/Footer";
-import { teamData } from "../About/TeamData";
+import { teamData } from "../../assets/data/teamData";
 
 export default function MeetOurTeam() {
   return (

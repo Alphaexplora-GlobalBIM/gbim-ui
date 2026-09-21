@@ -4,7 +4,7 @@ import { useParams, Link, Navigate } from "react-router-dom";
 import { ArrowLeft, CheckCircle2 } from "lucide-react";
 import { Reveal } from "../../components/Reveal";
 import Footer from "../../components/Footer";
-import { teamData } from "../About/TeamData";
+import { teamData } from "../../assets/data/teamData";
 
 export default function TeamMemberProfile() {
   const { id } = useParams();
