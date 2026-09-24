@@ -1,12 +1,14 @@
 // src/data/teamData.ts
 
+const defaultAvatar =
+  "https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg";
+
 export const teamData = [
   {
     id: "manuel-constantino",
     name: "Manuel C.",
     role: "Tekla Modeler / Checker",
-    image:
-      "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80",
+    image: defaultAvatar,
     shortBio:
       "30+ years of experience detailing structural steel across the US and Canada. Known for accuracy that keeps RFIs and rework to a minimum.",
     stats: [
@@ -35,8 +37,7 @@ export const teamData = [
     id: "richard-domingo",
     name: "Engr. Richard D.",
     role: "Project Manager / Checker",
-    image:
-      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80",
+    image: defaultAvatar,
     shortBio:
       "Licensed Civil Engineer with 25+ years checking shop & erection drawings to AISC standards across the US, Asia, and the Philippines.",
     stats: [
@@ -65,8 +66,7 @@ export const teamData = [
     id: "rosario-cabilao",
     name: "Rosario C.",
     role: "Senior Project Manager",
-    image:
-      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80",
+    image: defaultAvatar,
     shortBio:
       "Senior Project Manager overseeing structural steel detailing teams end-to-end, with 27+ years at her current firm.",
     stats: [
@@ -93,8 +93,7 @@ export const teamData = [
     id: "christopher-abillion",
     name: "Christopher A.",
     role: "Tekla Structures Checker / Modeler",
-    image:
-      "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80",
+    image: defaultAvatar,
     shortBio:
       "18+ years experience checking, modeling, and editing drawings for US fabricators. Started on SDS2 before specializing in Tekla.",
     stats: [
@@ -119,8 +118,7 @@ export const teamData = [
     id: "leia-lustan",
     name: "Leia L.",
     role: "PEMB Senior Steel Detailer",
-    image:
-      "https://images.unsplash.com/photo-1598550874175-4d0ef436c909?auto=format&fit=crop&q=80",
+    image: defaultAvatar,
     shortBio:
       "Brings 14 years of CAD drafting and steel detailing experience, working closely with engineering teams to produce highly accurate drawings.",
     stats: [
@@ -143,8 +141,7 @@ export const teamData = [
     id: "leonard-lustan",
     name: "Arch. Leonard L.",
     role: "PEMB Senior Steel Detailer / Checker",
-    image:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80",
+    image: defaultAvatar,
     shortBio:
       "Registered & licensed Architect combining 19+ years of architectural project leadership with pre-engineered building (PEB) steel detailing.",
     stats: [
@@ -169,8 +166,7 @@ export const teamData = [
     id: "romnick-samio",
     name: "Romnick S.",
     role: "Tekla Structure Modeler",
-    image:
-      "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80",
+    image: defaultAvatar,
     shortBio:
       "19+ years at one company, rising from Document Controller to Structural Steel Detailer, and now Tekla Structure Modeler.",
     stats: [
@@ -196,8 +192,7 @@ export const teamData = [
     id: "amgad-al-jaradi",
     name: "Amgad A.",
     role: "IT Administrator / Senior Steel Modeler",
-    image:
-      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80",
+    image: defaultAvatar,
     shortBio:
       "Manages project coordination alongside reviewing design drawings, combining steel modeling with a strong technical IT background.",
     stats: [

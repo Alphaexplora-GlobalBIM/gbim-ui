@@ -133,12 +133,11 @@ export default function Projects() {
 
       {/* 2. NAVIGATION & SEARCH */}
       <div className="relative z-40 bg-slate-900/80 border-y border-white/5 mb-0 shadow-2xl shadow-black/50">
-        <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          {/* Single Row Flex Container */}
-          <div className="flex flex-col xl:flex-row gap-6 justify-between items-center w-full min-w-0">
-            {/* LEFT SIDE: Category Filters (Flexible & Scrollable) */}
-            <div className="flex-1 w-full min-w-0 overflow-x-auto custom-scrollbar pb-2 xl:pb-0">
-              <div className="flex items-center gap-2 w-max pr-4">
+        <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+          <div className="flex flex-col xl:flex-row gap-4 sm:gap-6 justify-between items-center w-full min-w-0">
+            {/* LEFT SIDE: Category Filters */}
+            <div className="w-full xl:flex-1 min-w-0 overflow-x-auto custom-scrollbar pb-2 xl:pb-0">
+              <div className="flex items-center gap-2 w-max pr-4 xl:pr-6">
                 {categories.map((cat) => (
                   <button
                     key={cat}
@@ -151,10 +150,10 @@ export default function Projects() {
               </div>
             </div>
 
-            {/* RIGHT SIDE: Global Controls Group (Search + Toggle) */}
-            <div className="flex flex-col sm:flex-row items-center gap-4 w-full xl:w-auto shrink-0">
-              {/* Search Bar */}
-              <div className="relative w-full sm:w-80 shrink-0">
+            {/* RIGHT SIDE / BOTTOM ROW: Fluid Controls Group */}
+            <div className="flex flex-col sm:flex-row items-center gap-3 w-full xl:w-auto shrink-0">
+              {/* Search Bar: flex-1 forces it to absorb all empty space on tablets */}
+              <div className="relative w-full sm:flex-1 xl:w-80 shrink-0">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 group-focus-within:text-yellow-500 transition-colors" />
                 <input
                   type="text"
@@ -165,11 +164,10 @@ export default function Projects() {
                 />
               </div>
 
-              {/* Subtle Visual Divider */}
               <div className="hidden sm:block w-px h-8 bg-white/10 shrink-0"></div>
 
-              {/* View Toggle */}
-              <div className="flex bg-slate-800/50 rounded-sm p-1 border border-white/5 shrink-0 w-full sm:w-auto">
+              {/* View Toggle: Spans full width on mobile, tightly hugs content on tablet/desktop */}
+              <div className="flex w-full sm:w-auto bg-slate-800/50 rounded-sm p-1 border border-white/5 shrink-0">
                 <button
                   onClick={() => setViewMode("gallery")}
                   className={`flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2 text-xs font-bold uppercase tracking-widest transition-all rounded-sm ${viewMode === "gallery" ? "bg-yellow-500 text-slate-900 shadow-[0_0_15px_rgba(234,179,8,0.3)]" : "text-slate-400 hover:text-white"}`}
