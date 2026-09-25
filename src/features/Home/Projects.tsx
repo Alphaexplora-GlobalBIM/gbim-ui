@@ -26,6 +26,9 @@ import {
 
 const galleryItems = [...projectPlates, ...sitePlates];
 
+const isPlaceholderText = (text?: string) =>
+  !text || text.toLowerCase().includes("placeholder");
+
 const uniqueCats = Array.from(new Set(rawProjects.map((p) => p.category)));
 const categories = ["All", ...uniqueCats].sort();
 
@@ -400,8 +403,13 @@ export default function Projects() {
               </div>
 
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {filteredGallery.map((item, index) => (
-                  <motion.div
+                {filteredGallery.map((item, index) => {
+                  const hasDetails =
+                    !isPlaceholderText(item.label) &&
+                    !isPlaceholderText(item.location);
+
+                  return (
+                    <motion.div
                     key={item.id}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -436,20 +444,21 @@ export default function Projects() {
                       <div className="absolute top-4 right-4 bg-black/50 p-2 rounded-full backdrop-blur-sm transform -translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100">
                         <Maximize2 className="text-yellow-500 w-4 h-4" />
                       </div>
-                      <div className="transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-150">
-                        <h3 className="text-white font-bold text-lg leading-tight mb-1 uppercase tracking-tight line-clamp-2">
-                          {item.label}
-                        </h3>
-                        <div className="flex items-center gap-1.5 text-yellow-500 text-xs font-mono uppercase tracking-widest">
-                          <MapPin className="w-3 h-3 shrink-0" />
-                          <span className="truncate">
-                            {item.location || "Global Deployment"}
-                          </span>
+                      {hasDetails && (
+                        <div className="transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-150">
+                          <h3 className="text-white font-bold text-lg leading-tight mb-1 uppercase tracking-tight line-clamp-2">
+                            {item.label}
+                          </h3>
+                          <div className="flex items-center gap-1.5 text-yellow-500 text-xs font-mono uppercase tracking-widest">
+                            <MapPin className="w-3 h-3 shrink-0" />
+                            <span className="truncate">{item.location}</span>
+                          </div>
                         </div>
-                      </div>
+                      )}
                     </div>
                   </motion.div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           </motion.div>
