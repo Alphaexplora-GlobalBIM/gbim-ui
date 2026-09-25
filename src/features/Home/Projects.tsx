@@ -47,7 +47,7 @@ export default function Projects() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [searchParams] = useSearchParams();
-  const [viewMode, setViewMode] = useState<"list" | "gallery">("list");
+  const [viewMode, setViewMode] = useState<"list" | "gallery">("gallery");
 
   // NEW: State to track which list item is currently expanded
   const [expandedProject, setExpandedProject] = useState<string | null>(null);
