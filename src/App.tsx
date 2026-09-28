@@ -34,9 +34,6 @@ const BimConsulting = lazy(() => import("./features/Services/BimConsulting"));
 const Projects = lazy(() => import("./features/Home/Projects"));
 
 const MeetOurTeam = lazy(() => import("./features/About/MeetOurTeam"));
-const TeamMemberProfile = lazy(
-  () => import("./features/About/TeamMemberProfile"),
-);
 
 function App() {
   const [showIntro, setShowIntro] = useState(true);
@@ -98,7 +95,6 @@ function App() {
 
             {/* About Sub-page */}
             <Route path="/about/our-team" element={<MeetOurTeam />} />
-            <Route path="/about/our-team/:id" element={<TeamMemberProfile />} />
           </Routes>
         </Suspense>
       </div>
