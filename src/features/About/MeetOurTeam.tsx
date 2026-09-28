@@ -1,16 +1,30 @@
-// src/features/About/MeetOurTeam.tsx
-
-import { Linkedin, Mail, ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { X, ChevronRight, CheckCircle2 } from "lucide-react";
 import { Reveal } from "../../components/Reveal";
 import { TextReveal } from "../../components/TextReveal";
 import Footer from "../../components/Footer";
 import { teamData } from "../../assets/data/teamData";
 
 export default function MeetOurTeam() {
+  const [selectedMemberId, setSelectedMemberId] = useState<string | null>(null);
+  const selectedMember = teamData.find((m) => m.id === selectedMemberId);
+
+  React.useEffect(() => {
+    if (selectedMemberId) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [selectedMemberId]);
+
   return (
-    <div className="bg-slate-900 min-h-screen text-white font-sans relative overflow-hidden">
+    // 1. Removed 'flex', 'flex-col', and 'justify-between' from this main wrapper
+    <div className="bg-slate-900 text-white font-sans relative overflow-hidden">
+      {/* Background Grid Accent */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <div
           className="absolute inset-0 opacity-[0.03]"
@@ -20,115 +34,190 @@ export default function MeetOurTeam() {
             backgroundSize: "60px 60px",
           }}
         ></div>
-        <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-yellow-500/10 rounded-full blur-[120px]" />
-        <div className="absolute bottom-[20%] right-[-5%] w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[120px]" />
       </div>
 
-      <section className="relative pt-32 pb-16 z-10">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 text-center">
-          <Reveal>
-            <span className="text-yellow-500 font-bold tracking-widest uppercase text-sm mb-4 block">
-              The Minds Behind The Models
-            </span>
-          </Reveal>
-          <TextReveal
-            text="Meet Our Leadership Team"
-            variant="slide"
-            as="h1"
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6"
-          />
-          <TextReveal
-            text="Our strength lies not just in our software, but in the decades of collective engineering experience our team brings to every structural challenge."
-            variant="blur"
-            as="p"
-            className="text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed"
-            delay={200}
-          />
-        </div>
-      </section>
+      {/* 2. Added a new full-screen wrapper specifically for the content to push the footer down */}
+      <div className="min-h-screen flex flex-col justify-center pt-32 pb-24 relative z-10">
+        <section className="w-full max-w-[90rem] mx-auto px-6 lg:px-12">
+          <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
+            {/* LEFT COLUMN: Header */}
+            <div className="lg:w-2/5 shrink-0 w-full">
+              <Reveal>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="h-px w-8 bg-yellow-500"></div>
+                  <span className="text-yellow-500 font-mono text-xs tracking-widest uppercase">
+                    The Minds Behind The Models
+                  </span>
+                </div>
+              </Reveal>
 
-      <section className="py-16 relative z-10 mb-20">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          {/* CHANGED: Switched from grid to flex-wrap with justify-center */}
+              <TextReveal
+                text="LEADERSHIP TEAM"
+                variant="slide"
+                as="h1"
+                className="text-5xl md:text-6xl lg:text-7xl font-black text-white uppercase tracking-tighter leading-[0.85] mb-6"
+              />
+
+              <TextReveal
+                text="Our strength lies not just in our software, but in the decades of collective engineering experience our team brings to every structural challenge."
+                variant="blur"
+                as="p"
+                className="text-base text-slate-400 leading-relaxed max-w-sm"
+                delay={200}
+              />
+            </div>
+
+            {/* RIGHT COLUMN: Name-First Typographic List */}
+            <div className="lg:w-3/5 w-full">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 xl:gap-x-12 gap-y-0">
+                {teamData.map((member, index) => {
+                  const paddedIndex = String(index + 1).padStart(2, "0");
+
+                  return (
+                    <motion.div
+                      key={member.id}
+                      initial={{ opacity: 0, y: 10 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.4, delay: index * 0.05 }}
+                      onClick={() => setSelectedMemberId(member.id)}
+                      className="group cursor-pointer border-b border-white/10 py-4 xl:py-5 flex gap-4 items-center relative overflow-hidden"
+                    >
+                      <div className="absolute bottom-0 left-0 h-px w-0 bg-yellow-500 group-hover:w-full transition-all duration-700 ease-out z-10"></div>
+
+                      <span className="text-[10px] xl:text-xs text-slate-600 font-mono shrink-0 group-hover:text-yellow-500 transition-colors">
+                        {paddedIndex}
+                      </span>
+
+                      <div className="flex flex-col flex-1">
+                        <h3 className="text-lg xl:text-xl font-black text-white uppercase tracking-tight leading-none mb-1.5 group-hover:text-yellow-400 transition-colors">
+                          {member.name}
+                        </h3>
+                        <div className="flex items-center text-slate-400 group-hover:text-white transition-colors">
+                          <span className="w-4 h-px bg-slate-600 group-hover:bg-yellow-500 mr-2 transition-colors"></span>
+                          <span className="font-serif italic text-sm">
+                            {member.role}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="ml-auto opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+                        <ChevronRight className="text-yellow-500 w-4 h-4" />
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      {/* FULL SCREEN DATA MODAL */}
+      <AnimatePresence>
+        {selectedMember && (
           <motion.div
-            className="flex flex-wrap justify-center gap-8"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
-            variants={{
-              hidden: { opacity: 0 },
-              visible: { opacity: 1, transition: { staggerChildren: 0.15 } },
-            }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md overflow-y-auto"
+            onClick={() => setSelectedMemberId(null)}
           >
-            {teamData.map((member) => (
-              <motion.div
-                key={member.id}
-                /* ADDED: Calculated widths to maintain 3-column sizing with gaps */
-                className="w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.35rem)] flex"
-                variants={{
-                  hidden: { opacity: 0, y: 30 },
-                  visible: {
-                    opacity: 1,
-                    y: 0,
-                    transition: { duration: 0.8, ease: "easeOut" },
-                  },
-                }}
-              >
-                <div className="group flex flex-col w-full h-full bg-slate-800/50 backdrop-blur-md border border-white/5 p-6 rounded-2xl shadow-xl hover:border-yellow-500/50 transition-all duration-500 hover:-translate-y-2 relative overflow-hidden">
-                  <div className="absolute -top-20 -right-20 w-48 h-48 bg-yellow-500/10 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              onClick={(e) => e.stopPropagation()}
+              className="bg-slate-900 border border-white/10 rounded-sm shadow-2xl shadow-black max-w-4xl w-full relative overflow-hidden my-auto"
+            >
+              <div className="flex justify-between items-start p-8 border-b border-white/5 bg-slate-950/50">
+                <div>
+                  <p className="text-yellow-500 font-mono text-xs tracking-widest uppercase mb-3">
+                    Personnel Detail View
+                  </p>
+                  <h2 className="text-4xl md:text-5xl font-black text-white uppercase tracking-tight leading-none mb-2">
+                    {selectedMember.name}
+                  </h2>
+                  <p className="text-xl text-slate-400 font-serif italic">
+                    — {selectedMember.role}
+                  </p>
+                </div>
+                <button
+                  onClick={() => setSelectedMemberId(null)}
+                  className="p-2 bg-white/5 hover:bg-yellow-500 hover:text-black rounded-full transition-colors text-white shrink-0"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
 
-                  <div className="relative w-full aspect-[4/5] rounded-xl overflow-hidden mb-6 border border-white/10 shrink-0">
-                    <img
-                      src={member.image}
-                      alt={member.name}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent opacity-90"></div>
+              <div className="p-8 flex flex-col md:flex-row gap-12">
+                <div className="md:w-2/3">
+                  <h4 className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">
+                    Professional Background
+                  </h4>
+                  <p className="text-slate-300 leading-relaxed mb-8 text-sm md:text-base">
+                    {selectedMember.fullBio.replace(/\+\]/g, "")}
+                  </p>
 
-                    <div className="absolute bottom-4 left-4 flex gap-3 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 delay-100">
-                      <a
-                        href="#"
-                        className="w-10 h-10 rounded-full bg-slate-900 border border-white/20 flex items-center justify-center text-white hover:bg-yellow-500 hover:text-slate-900 hover:border-yellow-500 transition-colors"
+                  <h4 className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">
+                    Core Competencies
+                  </h4>
+                  <ul className="space-y-3 mb-8">
+                    {selectedMember.expertise.map((exp, i) => (
+                      <li
+                        key={i}
+                        className="flex items-start text-slate-300 text-sm leading-relaxed"
                       >
-                        <Linkedin className="w-4 h-4" />
-                      </a>
-                      <a
-                        href="#"
-                        className="w-10 h-10 rounded-full bg-slate-900 border border-white/20 flex items-center justify-center text-white hover:bg-yellow-500 hover:text-slate-900 hover:border-yellow-500 transition-colors"
+                        <CheckCircle2 className="w-4 h-4 text-yellow-500 shrink-0 mr-3 mt-0.5" />
+                        <span>{exp.replace(/\+\]/g, "")}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="md:w-1/3 flex flex-col gap-8 border-t md:border-t-0 md:border-l border-white/5 pt-8 md:pt-0 md:pl-12">
+                  <div className="grid grid-cols-1 gap-4">
+                    {selectedMember.stats.map((stat, i) => (
+                      <div
+                        key={i}
+                        className="bg-slate-950 p-4 rounded-sm border border-white/5"
                       >
-                        <Mail className="w-4 h-4" />
-                      </a>
-                    </div>
+                        <p className="text-yellow-500 text-2xl font-black mb-1">
+                          {stat.value}
+                        </p>
+                        <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">
+                          {stat.label}
+                        </p>
+                      </div>
+                    ))}
                   </div>
-
-                  <div className="flex flex-col flex-grow">
-                    <h3 className="text-2xl font-bold text-white mb-1 group-hover:text-yellow-500 transition-colors">
-                      {member.name}
-                    </h3>
-                    <p className="text-yellow-600 text-sm font-bold uppercase tracking-wider mb-4">
-                      {member.role}
-                    </p>
-                    <p className="text-slate-400 text-sm leading-relaxed border-t border-white/5 pt-4 mb-6 line-clamp-4">
-                      {member.shortBio.replace(/\]+\]/g, "")}
-                    </p>
-
-                    <div className="mt-auto pt-4">
-                      <Link
-                        to={`/about/our-team/${member.id}`}
-                        className="inline-flex items-center text-sm font-bold text-white group-hover:text-yellow-500 transition-colors"
-                      >
-                        View Full Profile{" "}
-                        <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                      </Link>
+                  <div>
+                    <h4 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-3">
+                      Software Proficiency
+                    </h4>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedMember.software.map((sw, i) => (
+                        <span
+                          key={i}
+                          className="px-2.5 py-1 bg-white/5 border border-white/10 text-slate-300 text-xs rounded-sm"
+                        >
+                          {sw}
+                        </span>
+                      ))}
                     </div>
                   </div>
                 </div>
-              </motion.div>
-            ))}
+              </div>
+            </motion.div>
           </motion.div>
-        </div>
-      </section>
-      <Footer />
+        )}
+      </AnimatePresence>
+
+      {/* 3. Footer now naturally sits below the 100vh content wrapper */}
+      <div className="relative z-10 w-full bg-slate-950 border-t border-white/5">
+        <Footer />
+      </div>
     </div>
   );
 }
