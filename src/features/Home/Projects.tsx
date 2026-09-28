@@ -11,20 +11,15 @@ import {
   LayoutGrid,
   ChevronDown,
   Globe2,
-  Crosshair,
 } from "lucide-react";
 import { TextReveal } from "../../components/TextReveal";
 import { useSearchParams } from "react-router-dom";
 import Footer from "../../components/Footer";
 
 // 1. IMPORT YOUR CLEAN DATA
-import {
-  rawProjects,
-  sitePlates,
-  projectPlates,
-} from "../../assets/data/projectsData";
+import { rawProjects, projectPlates } from "../../assets/data/projectsData";
 
-const galleryItems = [...projectPlates, ...sitePlates];
+const galleryItems = [...projectPlates];
 
 const isPlaceholderText = (text?: string) =>
   !text || text.toLowerCase().includes("placeholder");
@@ -311,27 +306,16 @@ export default function Projects() {
                                     </p>
                                   </div>
 
-                                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-white/5">
+                                  {/* Technical Data (Coordinates Removed) */}
+                                  <div className="pt-4 border-t border-white/5">
                                     <div className="flex items-start gap-3">
-                                      <Globe2 className="w-5 h-5 text-slate-500 shrink-0" />
+                                      <Globe2 className="w-5 h-5 text-slate-500 shrink-0 mt-0.5" />
                                       <div>
                                         <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-0.5">
                                           Macro Region
                                         </p>
                                         <p className="text-sm text-slate-300">
                                           {project.region}
-                                        </p>
-                                      </div>
-                                    </div>
-                                    <div className="flex items-start gap-3">
-                                      <Crosshair className="w-5 h-5 text-slate-500 shrink-0" />
-                                      <div>
-                                        <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-0.5">
-                                          Coordinates
-                                        </p>
-                                        <p className="text-sm text-slate-300 font-mono">
-                                          {project.lat.toFixed(4)},{" "}
-                                          {project.lng.toFixed(4)}
                                         </p>
                                       </div>
                                     </div>
@@ -410,53 +394,53 @@ export default function Projects() {
 
                   return (
                     <motion.div
-                    key={item.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-50px" }}
-                    transition={{ duration: 0.6, delay: (index % 4) * 0.1 }}
-                    className="group relative aspect-[4/3] bg-slate-900 rounded-sm overflow-hidden border border-white/5 cursor-pointer"
-                    onClick={() => item.real && setFullScreenImage(item.real)}
-                  >
-                    {item.sketch && (
-                      <img
-                        src={item.sketch}
-                        alt={`${item.label} — structural sketch`}
-                        className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 opacity-100 group-hover:opacity-0"
-                        style={{ zIndex: 10 }}
-                      />
-                    )}
-                    {item.real && (
-                      <img
-                        src={item.real}
-                        alt={`${item.label} — completed structure`}
-                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2s] scale-100 group-hover:scale-110"
-                        style={{ zIndex: 5 }}
-                      />
-                    )}
-                    {(!item.real || !item.sketch) && (
-                      <div className="absolute inset-0 flex items-center justify-center text-slate-700 font-mono text-[10px] z-0">
-                        ASSET_NOT_FOUND
-                      </div>
-                    )}
-
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-20 flex flex-col justify-end p-6">
-                      <div className="absolute top-4 right-4 bg-black/50 p-2 rounded-full backdrop-blur-sm transform -translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100">
-                        <Maximize2 className="text-yellow-500 w-4 h-4" />
-                      </div>
-                      {hasDetails && (
-                        <div className="transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-150">
-                          <h3 className="text-white font-bold text-lg leading-tight mb-1 uppercase tracking-tight line-clamp-2">
-                            {item.label}
-                          </h3>
-                          <div className="flex items-center gap-1.5 text-yellow-500 text-xs font-mono uppercase tracking-widest">
-                            <MapPin className="w-3 h-3 shrink-0" />
-                            <span className="truncate">{item.location}</span>
-                          </div>
+                      key={item.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: "-50px" }}
+                      transition={{ duration: 0.6, delay: (index % 4) * 0.1 }}
+                      className="group relative aspect-[4/3] bg-slate-900 rounded-sm overflow-hidden border border-white/5 cursor-pointer"
+                      onClick={() => item.real && setFullScreenImage(item.real)}
+                    >
+                      {item.sketch && (
+                        <img
+                          src={item.sketch}
+                          alt={`${item.label} — structural sketch`}
+                          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 opacity-100 group-hover:opacity-0"
+                          style={{ zIndex: 10 }}
+                        />
+                      )}
+                      {item.real && (
+                        <img
+                          src={item.real}
+                          alt={`${item.label} — completed structure`}
+                          className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2s] scale-100 group-hover:scale-110"
+                          style={{ zIndex: 5 }}
+                        />
+                      )}
+                      {(!item.real || !item.sketch) && (
+                        <div className="absolute inset-0 flex items-center justify-center text-slate-700 font-mono text-[10px] z-0">
+                          ASSET_NOT_FOUND
                         </div>
                       )}
-                    </div>
-                  </motion.div>
+
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-20 flex flex-col justify-end p-6">
+                        <div className="absolute top-4 right-4 bg-black/50 p-2 rounded-full backdrop-blur-sm transform -translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100">
+                          <Maximize2 className="text-yellow-500 w-4 h-4" />
+                        </div>
+                        {hasDetails && (
+                          <div className="transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-150">
+                            <h3 className="text-white font-bold text-lg leading-tight mb-1 uppercase tracking-tight line-clamp-2">
+                              {item.label}
+                            </h3>
+                            <div className="flex items-center gap-1.5 text-yellow-500 text-xs font-mono uppercase tracking-widest">
+                              <MapPin className="w-3 h-3 shrink-0" />
+                              <span className="truncate">{item.location}</span>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </motion.div>
                   );
                 })}
               </div>
