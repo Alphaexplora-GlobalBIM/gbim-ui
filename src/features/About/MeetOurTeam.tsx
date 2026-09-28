@@ -22,8 +22,8 @@ export default function MeetOurTeam() {
   }, [selectedMemberId]);
 
   return (
-    // Changed to justify-center to vertically center the entire block within the screen
-    <div className="bg-slate-900 min-h-screen text-white font-sans relative overflow-hidden flex flex-col justify-between pt-24">
+    // 1. Removed 'flex', 'flex-col', and 'justify-between' from this main wrapper
+    <div className="bg-slate-900 text-white font-sans relative overflow-hidden">
       {/* Background Grid Accent */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <div
@@ -36,84 +36,82 @@ export default function MeetOurTeam() {
         ></div>
       </div>
 
-      {/* Main Content Wrapper - Centers vertically */}
-      <section className="relative z-10 w-full max-w-[90rem] mx-auto px-6 lg:px-12 my-auto">
-        {/* Changed to items-center to balance the two columns vertically */}
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
-          {/* LEFT COLUMN: Scaled down text to prevent clipping */}
-          <div className="lg:w-2/5 shrink-0 w-full">
-            <Reveal>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="h-px w-8 bg-yellow-500"></div>
-                <span className="text-yellow-500 font-mono text-xs tracking-widest uppercase">
-                  The Minds Behind The Models
-                </span>
-              </div>
-            </Reveal>
+      {/* 2. Added a new full-screen wrapper specifically for the content to push the footer down */}
+      <div className="min-h-screen flex flex-col justify-center pt-32 pb-24 relative z-10">
+        <section className="w-full max-w-[90rem] mx-auto px-6 lg:px-12">
+          <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
+            {/* LEFT COLUMN: Header */}
+            <div className="lg:w-2/5 shrink-0 w-full">
+              <Reveal>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="h-px w-8 bg-yellow-500"></div>
+                  <span className="text-yellow-500 font-mono text-xs tracking-widest uppercase">
+                    The Minds Behind The Models
+                  </span>
+                </div>
+              </Reveal>
 
-            <TextReveal
-              text="LEADERSHIP TEAM"
-              variant="slide"
-              as="h1"
-              // Reduced from 8xl down to 6xl/7xl to fit the column width securely
-              className="text-5xl md:text-6xl lg:text-7xl font-black text-white uppercase tracking-tighter leading-[0.85] mb-6"
-            />
+              <TextReveal
+                text="LEADERSHIP TEAM"
+                variant="slide"
+                as="h1"
+                className="text-5xl md:text-6xl lg:text-7xl font-black text-white uppercase tracking-tighter leading-[0.85] mb-6"
+              />
 
-            <TextReveal
-              text="Our strength lies not just in our software, but in the decades of collective engineering experience our team brings to every structural challenge."
-              variant="blur"
-              as="p"
-              className="text-base text-slate-400 leading-relaxed max-w-sm"
-              delay={200}
-            />
-          </div>
+              <TextReveal
+                text="Our strength lies not just in our software, but in the decades of collective engineering experience our team brings to every structural challenge."
+                variant="blur"
+                as="p"
+                className="text-base text-slate-400 leading-relaxed max-w-sm"
+                delay={200}
+              />
+            </div>
 
-          {/* RIGHT COLUMN: Compressed Typographic List */}
-          <div className="lg:w-3/5 w-full">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 xl:gap-x-12 gap-y-0">
-              {teamData.map((member, index) => {
-                const paddedIndex = String(index + 1).padStart(2, "0");
+            {/* RIGHT COLUMN: Name-First Typographic List */}
+            <div className="lg:w-3/5 w-full">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 xl:gap-x-12 gap-y-0">
+                {teamData.map((member, index) => {
+                  const paddedIndex = String(index + 1).padStart(2, "0");
 
-                return (
-                  <motion.div
-                    key={member.id}
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: index * 0.05 }}
-                    onClick={() => setSelectedMemberId(member.id)}
-                    // Tightened vertical padding (py-5 down from py-10)
-                    className="group cursor-pointer border-b border-white/10 py-4 xl:py-5 flex gap-4 items-center relative overflow-hidden"
-                  >
-                    <div className="absolute bottom-0 left-0 h-px w-0 bg-yellow-500 group-hover:w-full transition-all duration-700 ease-out z-10"></div>
+                  return (
+                    <motion.div
+                      key={member.id}
+                      initial={{ opacity: 0, y: 10 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.4, delay: index * 0.05 }}
+                      onClick={() => setSelectedMemberId(member.id)}
+                      className="group cursor-pointer border-b border-white/10 py-4 xl:py-5 flex gap-4 items-center relative overflow-hidden"
+                    >
+                      <div className="absolute bottom-0 left-0 h-px w-0 bg-yellow-500 group-hover:w-full transition-all duration-700 ease-out z-10"></div>
 
-                    <span className="text-[10px] xl:text-xs text-slate-600 font-mono shrink-0 group-hover:text-yellow-500 transition-colors">
-                      {paddedIndex}
-                    </span>
+                      <span className="text-[10px] xl:text-xs text-slate-600 font-mono shrink-0 group-hover:text-yellow-500 transition-colors">
+                        {paddedIndex}
+                      </span>
 
-                    <div className="flex flex-col flex-1">
-                      {/* Reduced header size and bottom margin */}
-                      <h3 className="text-lg xl:text-xl font-black text-white uppercase tracking-tight leading-none mb-1.5 group-hover:text-yellow-400 transition-colors">
-                        {member.role}
-                      </h3>
-                      <div className="flex items-center text-slate-400 group-hover:text-white transition-colors">
-                        <span className="w-4 h-px bg-slate-600 group-hover:bg-yellow-500 mr-2 transition-colors"></span>
-                        <span className="font-serif italic text-sm">
+                      <div className="flex flex-col flex-1">
+                        <h3 className="text-lg xl:text-xl font-black text-white uppercase tracking-tight leading-none mb-1.5 group-hover:text-yellow-400 transition-colors">
                           {member.name}
-                        </span>
+                        </h3>
+                        <div className="flex items-center text-slate-400 group-hover:text-white transition-colors">
+                          <span className="w-4 h-px bg-slate-600 group-hover:bg-yellow-500 mr-2 transition-colors"></span>
+                          <span className="font-serif italic text-sm">
+                            {member.role}
+                          </span>
+                        </div>
                       </div>
-                    </div>
 
-                    <div className="ml-auto opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-                      <ChevronRight className="text-yellow-500 w-4 h-4" />
-                    </div>
-                  </motion.div>
-                );
-              })}
+                      <div className="ml-auto opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+                        <ChevronRight className="text-yellow-500 w-4 h-4" />
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
       {/* FULL SCREEN DATA MODAL */}
       <AnimatePresence>
@@ -139,10 +137,10 @@ export default function MeetOurTeam() {
                     Personnel Detail View
                   </p>
                   <h2 className="text-4xl md:text-5xl font-black text-white uppercase tracking-tight leading-none mb-2">
-                    {selectedMember.role}
+                    {selectedMember.name}
                   </h2>
                   <p className="text-xl text-slate-400 font-serif italic">
-                    — {selectedMember.name}
+                    — {selectedMember.role}
                   </p>
                 </div>
                 <button
@@ -216,8 +214,8 @@ export default function MeetOurTeam() {
         )}
       </AnimatePresence>
 
-      {/* Footer added back to flow normally at the bottom of the screen */}
-      <div className="relative z-10 w-full mt-12">
+      {/* 3. Footer now naturally sits below the 100vh content wrapper */}
+      <div className="relative z-10 w-full bg-slate-950 border-t border-white/5">
         <Footer />
       </div>
     </div>
